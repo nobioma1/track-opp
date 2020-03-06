@@ -14,7 +14,7 @@ export const getApplications = () => dispatch => {
   });
 };
 
-export const addApplication = application => dispatch => {
+export const addApplication = (application, onCompleteFn) => dispatch => {
   dispatch({ type: START_REQUEST });
   applicationsRef.push(
     {
@@ -24,6 +24,9 @@ export const addApplication = application => dispatch => {
       offer: false,
       concluded: false,
     },
-    () => dispatch({ type: ADD_APPLICATION })
+    () => {
+      dispatch({ type: ADD_APPLICATION });
+      onCompleteFn();
+    }
   );
 };

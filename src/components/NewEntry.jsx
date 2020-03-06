@@ -17,7 +17,13 @@ const NewEntry = ({ addApplication }) => {
   const onSubmitHandler = e => {
     e.preventDefault();
     if (application.jobTitle && application.jobDescription) {
-      addApplication(application);
+      addApplication(application, () =>
+        setApplication({
+          jobTitle: '',
+          companyName: '',
+          jobDescription: '',
+        })
+      );
     }
   };
 
