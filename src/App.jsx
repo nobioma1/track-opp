@@ -1,4 +1,5 @@
 import React from 'react';
+
 import NewEntry from './components/NewEntry';
 import Dashboard from './components/Dashboard';
 
