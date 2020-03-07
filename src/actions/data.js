@@ -9,8 +9,10 @@ export const END_REQUEST = 'END_REQUEST';
 export const getApplications = () => dispatch => {
   dispatch({ type: START_REQUEST });
   applicationsRef.on('value', snapshot => {
+    if (snapshot.val()) {
     const data = getCounts(Object.entries(snapshot.val()));
     dispatch({ type: SET_APPLICATIONS, payload: data });
+    }
   });
 };
 
