@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ApplicationsNav from './ApplicationsNav';
+import { setCurrentStage } from '../actions/data';
 
 const Applications = () => {
   const [active, setActive] = useState('jobsApplied');
@@ -9,13 +10,15 @@ const Applications = () => {
     counts: dataReducer.counts,
     applications: dataReducer.applications,
   }));
+  const dispatch = useDispatch();
 
+  // Filtering different tabs
   const filteredApplications = applications.filter(application => {
     switch (active) {
       case 'interviews':
         return application.interview;
       case 'offers':
-        return application.offers;
+        return application.offer;
       case 'noResponse':
         return (
           !application.hired &&
@@ -30,6 +33,10 @@ const Applications = () => {
     }
   });
 
+  const updateCurrentStage = (id, value) => {
+    dispatch(setCurrentStage(id, value));
+  };
+
   return (
     <div>
       <ApplicationsNav
@@ -37,32 +44,81 @@ const Applications = () => {
         selectTab={setActive}
         counts={counts}
       />
-      <div className="lg:flex">
-        <div className="m-2">
-          {filteredApplications.map(application => (
-            <div
-              key={application.id}
-              className="border-t border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal my-2"
-            >
-              <p className="text-sm text-gray-600 flex items-center">
+      <div className="flex flex-col">
+        {filteredApplications.map(application => (
+          <div
+            key={application.id}
+            className="border border-gray-400 bg-white rounded p-2 md:p-4 flex flex-col justify-between leading-normal my-2"
+          >
+            <div className="flex justify-between md:justify-end">
+              <p className="text-sm text-gray-600 mr-1 flex items-center">
                 <svg
                   className="fill-current text-gray-500 w-3 h-3 mr-2"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
+                  viewBox="0 0 64 64"
                 >
-                  <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
+                  <path d="M61.33,58.67H7l9.9-19.8L30.29,50.05a2.67,2.67,0,0,0,4-.68L50,23.24l1.31,4.09a2.67,2.67,0,0,0,2.54,1.86,2.54,2.54,0,0,0,.81-.13,2.68,2.68,0,0,0,1.73-3.35L53,15.34a2.66,2.66,0,0,0-3.35-1.73L39.53,16.84a2.67,2.67,0,0,0,1.62,5.08l4.19-1.33L31.32,44,17.71,32.62a2.68,2.68,0,0,0-4.1.85L5.33,50V2.67A2.67,2.67,0,1,0,0,2.67V61.33a3.49,3.49,0,0,0,.07.37,2.62,2.62,0,0,0,.12.57,2.76,2.76,0,0,0,.25.44,2.79,2.79,0,0,0,.28.42,2.58,2.58,0,0,0,.45.35,2.25,2.25,0,0,0,.3.24l.11,0,.15.05a2.58,2.58,0,0,0,.93.19H61.33a2.67,2.67,0,1,0,0-5.33Z" />
                 </svg>
-                Members only
+                Current Stage:
               </p>
-              <div className="text-gray-900 font-bold text-xl mb-2">
-                {application.jobTitle}
+              <div className="flex">
+                <select
+                  className={`border rounded text-gray-700 outline-none ${
+                    application.offer && application.concluded
+                      ? `border-teal-400`
+                      : ''
+                  }`}
+                  value={
+                    application.offer && !application.concluded
+                      ? 'offer'
+                      : application.interview && !application.concluded
+                      ? 'interview'
+                      : application.concluded && !application.offer
+                      ? 'notAMatch'
+                      : application.offer && application.concluded
+                      ? 'accept'
+                      : 'review'
+                  } // Revise Logic
+                  onChange={e =>
+                    updateCurrentStage(application.id, e.target.value)
+                  }
+                >
+                  <option value="review">Reviewing</option>
+                  <option value="interview">Interview</option>
+                  <option value="offer">Offer</option>
+                  <option value="notAMatch">Not A Match</option>
+                  <option value="accept">A Match</option>
+                </select>
+                <div className="flex items-center ml-2 cursor-pointer">
+                  <svg
+                    className="fill-current text-gray-500 w-5 h-5 hover:text-blue-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                  >
+                    <path d="M0,16H16V0H0ZM5.33,5.33h5.34v5.34H5.33Z" />
+                    <path d="M24,16H40V0H24ZM29.33,5.33h5.34v5.34H29.33Z" />
+                    <path d="M48,0V16H64V0ZM58.67,10.67H53.33V5.33h5.34Z" />
+                    <path d="M0,40H16V24H0ZM5.33,29.33h5.34v5.34H5.33Z" />
+                    <path d="M24,40H40V24H24Zm5.33-10.67h5.34v5.34H29.33Z" />
+                    <path d="M48,40H64V24H48Zm5.33-10.67h5.34v5.34H53.33Z" />
+                    <path d="M0,64H16V48H0ZM5.33,53.33h5.34v5.34H5.33Z" />
+                    <path d="M24,64H40V48H24Zm5.33-10.67h5.34v5.34H29.33Z" />
+                    <path d="M48,64H64V48H48Zm5.33-10.67h5.34v5.34H53.33Z" />
+                  </svg>
+                </div>
               </div>
-              <p className="text-gray-700 text-base">
-                {application.jobDescription}
-              </p>
             </div>
-          ))}
-        </div>
+            <div className="text-gray-900 font-bold text-xl mb-2">
+              {application.jobTitle}
+            </div>
+            <p className="text-gray-700 font-medium text-base">
+              {application.companyName}
+            </p>
+            <p className="text-gray-500 text-base">
+              {application.jobDescription}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
