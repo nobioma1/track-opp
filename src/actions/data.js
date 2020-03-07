@@ -10,8 +10,8 @@ export const getApplications = () => dispatch => {
   dispatch({ type: START_REQUEST });
   applicationsRef.on('value', snapshot => {
     if (snapshot.val()) {
-    const data = getCounts(Object.entries(snapshot.val()));
-    dispatch({ type: SET_APPLICATIONS, payload: data });
+      const data = getCounts(Object.entries(snapshot.val()));
+      dispatch({ type: SET_APPLICATIONS, payload: data });
     }
   });
 };
@@ -31,4 +31,42 @@ export const addApplication = (application, onCompleteFn) => dispatch => {
       onCompleteFn();
     }
   );
+};
+
+export const setCurrentStage = (id, value) => dispatch => {
+  // object to hold changes to be made
+  dispatch({ type: START_REQUEST });
+  const newUpdate = {};
+  switch (value) {
+    case 'review':
+      newUpdate[`${id}/interview`] = false;
+      newUpdate[`${id}/offer`] = false;
+      newUpdate[`${id}/hired`] = false;
+      newUpdate[`${id}/concluded`] = false;
+      break;
+    case 'interview':
+      newUpdate[`${id}/interview`] = true;
+      newUpdate[`${id}/offer`] = false;
+      newUpdate[`${id}/hired`] = false;
+      newUpdate[`${id}/concluded`] = false;
+      break;
+    case 'offer':
+      newUpdate[`${id}/concluded`] = false;
+      newUpdate[`${id}/hired`] = false;
+      newUpdate[`${id}/offer`] = true;
+      break;
+    case 'notAMatch':
+      newUpdate[`${id}/concluded`] = true;
+      newUpdate[`${id}/hired`] = false;
+      break;
+    case 'accept':
+      newUpdate[`${id}/offer`] = true;
+      newUpdate[`${id}/concluded`] = true;
+      newUpdate[`${id}/hired`] = true;
+      break;
+    default:
+      break;
+  }
+  // update reference
+  applicationsRef.update(newUpdate, () => dispatch({ type: END_REQUEST }));
 };
