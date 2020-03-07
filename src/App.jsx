@@ -16,7 +16,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Header />
-      <div className="container mx-auto pt-16 pb-8 px-3">
+      <div className="container max-w-4xl mx-auto pt-16 pb-8 px-2">
         <Route exact path="/" component={Dashboard} />
         <Route exact path="/applications" component={Applications} />
       </div>
