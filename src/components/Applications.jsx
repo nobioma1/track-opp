@@ -88,25 +88,38 @@ const Applications = () => {
                   <option value="review">Reviewing</option>
                   <option value="interview">Interview</option>
                   <option value="offer">Offer</option>
-                  <option value="notAMatch">Not A Match</option>
                   <option value="accept">A Match</option>
+                  <option value="notAMatch">Not A Match</option>
                 </select>
-                <div className="flex items-center ml-2 cursor-pointer">
-                  <svg
-                    className="fill-current text-gray-500 w-5 h-5 hover:text-blue-500"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 64 64"
+                <div className="group relative">
+                  <div class="flex items-center ml-2 cursor-pointer">
+                    <svg
+                      className="fill-current text-gray-500 w-5 h-5 hover:text-blue-500"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 64 64"
+                    >
+                      <path d="M0,16H16V0H0ZM5.33,5.33h5.34v5.34H5.33Z" />
+                      <path d="M24,16H40V0H24ZM29.33,5.33h5.34v5.34H29.33Z" />
+                      <path d="M48,0V16H64V0ZM58.67,10.67H53.33V5.33h5.34Z" />
+                      <path d="M0,40H16V24H0ZM5.33,29.33h5.34v5.34H5.33Z" />
+                      <path d="M24,40H40V24H24Zm5.33-10.67h5.34v5.34H29.33Z" />
+                      <path d="M48,40H64V24H48Zm5.33-10.67h5.34v5.34H53.33Z" />
+                      <path d="M0,64H16V48H0ZM5.33,53.33h5.34v5.34H5.33Z" />
+                      <path d="M24,64H40V48H24Zm5.33-10.67h5.34v5.34H29.33Z" />
+                      <path d="M48,64H64V48H48Zm5.33-10.67h5.34v5.34H53.33Z" />
+                    </svg>
+                  </div>
+                  <div
+                    className="hidden group-hover:block border mt-2 bg-white rounded absolute"
+                    style={{ left: '-50px' }}
                   >
-                    <path d="M0,16H16V0H0ZM5.33,5.33h5.34v5.34H5.33Z" />
-                    <path d="M24,16H40V0H24ZM29.33,5.33h5.34v5.34H29.33Z" />
-                    <path d="M48,0V16H64V0ZM58.67,10.67H53.33V5.33h5.34Z" />
-                    <path d="M0,40H16V24H0ZM5.33,29.33h5.34v5.34H5.33Z" />
-                    <path d="M24,40H40V24H24Zm5.33-10.67h5.34v5.34H29.33Z" />
-                    <path d="M48,40H64V24H48Zm5.33-10.67h5.34v5.34H53.33Z" />
-                    <path d="M0,64H16V48H0ZM5.33,53.33h5.34v5.34H5.33Z" />
-                    <path d="M24,64H40V48H24Zm5.33-10.67h5.34v5.34H29.33Z" />
-                    <path d="M48,64H64V48H48Zm5.33-10.67h5.34v5.34H53.33Z" />
-                  </svg>
+                    <p className="px-4 py-2 block text-black hover:bg-blue-300 cursor-pointer">
+                      Edit
+                    </p>
+                    <p className="px-4 py-2 block text-red-500 hover:bg-red-500 hover:text-white cursor-pointer">
+                      Delete
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
