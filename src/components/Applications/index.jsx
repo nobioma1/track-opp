@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ApplicationsNav from './ApplicationsNav';
 import { setCurrentStage, deleteApplication } from '../../actions/applications';
 import ApplicationItem from './ApplicationItem';
+import nodata from '../../assets/nodata.svg';
 
 const Applications = () => {
   const [active, setActive] = useState('jobsApplied');
@@ -52,15 +53,31 @@ const Applications = () => {
         counts={counts}
       />
       <div className="flex flex-col">
-        {filteredApplications.map(application => (
-          <ApplicationItem
-            key={application.id}
-            application={application}
-            updateCurrentStage={updateCurrentStage}
-            onEdit={onEditHandler}
-            onDelete={onDeleteHandler}
-          />
-        ))}
+        {applications.length > 0 ? (
+          filteredApplications.map(application => (
+            <ApplicationItem
+              key={application.id}
+              application={application}
+              updateCurrentStage={updateCurrentStage}
+              onEdit={onEditHandler}
+              onDelete={onDeleteHandler}
+            />
+          ))
+        ) : (
+          <div className="flex flex-col items-center opacity-50">
+            <img
+              className="h-full w-2/3"
+              src={nodata}
+              alt="No data to Display"
+            />
+            <p className="text-xl font-medium text-center">
+              Great things never come from comfort zones. Make those
+              applications now!! <br />
+              Let's cause an
+              <span className="text-2xl font-bold"> "ApplicationOverflow"</span>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
