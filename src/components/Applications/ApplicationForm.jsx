@@ -28,10 +28,14 @@ const InputField = ({ id, label, ...rest }) => {
 
 const ApplicationForm = ({ application, closeEdit }) => {
   const [fieldValues, setFieldValues] = useState(application || INITIAL_VALUES);
+  const [error, setError] = useState('');
 
   const dispatch = useDispatch();
 
   const onChangeHandler = event => {
+    if (error) {
+      setError('');
+    }
     const target = event.target;
     setFieldValues(prev => ({ ...prev, [target.name]: target.value }));
   };
@@ -52,6 +56,8 @@ const ApplicationForm = ({ application, closeEdit }) => {
           })
         );
       }
+    } else {
+      setError('Job Title and Company Name Fields are required');
     }
   };
 
@@ -96,6 +102,7 @@ const ApplicationForm = ({ application, closeEdit }) => {
           value={fieldValues.jobDescription}
           onChange={onChangeHandler}
         />
+        <p className="mb-1 text-red-400">{error}</p>
         <button
           type="submit"
           className="bg-blue-500 w-full md:w-56 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
