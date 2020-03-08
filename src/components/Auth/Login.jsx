@@ -36,7 +36,7 @@ const Login = () => {
           )}
         </div>
       ) : (
-        <Redirect to="/" />
+        <Redirect to="/dash" />
       )}
     </div>
   );

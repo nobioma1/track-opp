@@ -20,10 +20,10 @@ const App = () => {
     <Router>
       <Header />
       <div className="container max-w-4xl mx-auto pt-16 pb-8 px-2">
-        <PrivateRoute exact path="/" component={Dashboard} />
-        <Route path="/login" component={Login} />
+        <Route exact path="/" component={Login} />
+        <PrivateRoute path="/dash" component={Dashboard} />
         <PrivateRoute path="/applications" component={Applications} />
-        <Route render={() => <Redirect to="/" />} />
+        <Route render={() => <Redirect to="/dash" />} />
       </div>
     </Router>
   );

@@ -49,7 +49,7 @@ const Applications = () => {
   return (
     <div>
       <Link
-        to="/"
+        to="/dash"
         className="text-lg text-gray-700 font-medium my-3 hover:text-blue-400"
       >
         &#8249; Back to Home
