@@ -11,6 +11,9 @@ const config = {
 };
 
 firebase.initializeApp(config);
-const databaseRef = firebase.database().ref();
 
-export const applicationsRef = databaseRef.child('applications' + '-dev');
+const database = firebase.database;
+const databaseRef = database().ref();
+
+export const userRef = databaseRef.child(`user-001`);
+export const timestamp = database.ServerValue.TIMESTAMP;

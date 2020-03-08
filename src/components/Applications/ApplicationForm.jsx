@@ -1,67 +1,84 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { addApplication } from '../../actions/data';
+import { addApplication, editApplication } from '../../actions/applications';
 
-const NewEntry = ({ addApplication }) => {
-  const [application, setApplication] = useState({
-    jobTitle: '',
-    companyName: '',
-    jobDescription: '',
-  });
+const INITIAL_VALUES = {
+  jobTitle: '',
+  companyName: '',
+  jobDescription: '',
+};
+
+const InputField = ({ id, label, ...rest }) => {
+  return (
+    <React.Fragment>
+      <label
+        className="block uppercase text-gray-700 text-xm font-bold mb-2"
+        htmlFor={id}
+      >
+        {label}
+      </label>
+      <input
+        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        {...rest}
+      />
+    </React.Fragment>
+  );
+};
+
+const ApplicationForm = ({ application, closeEdit }) => {
+  const [fieldValues, setFieldValues] = useState(application || INITIAL_VALUES);
+
+  const dispatch = useDispatch();
 
   const onChangeHandler = event => {
     const target = event.target;
-    setApplication(prev => ({ ...prev, [target.name]: target.value }));
+    setFieldValues(prev => ({ ...prev, [target.name]: target.value }));
   };
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    if (application.jobTitle && application.jobDescription) {
-      addApplication(application, () =>
-        setApplication({
-          jobTitle: '',
-          companyName: '',
-          jobDescription: '',
-        })
-      );
+    addApplication(fieldValues, () => dispatch(setFieldValues(INITIAL_VALUES)));
+    if (fieldValues.jobTitle && fieldValues.companyName) {
+      if (!application) {
+        dispatch(
+          addApplication(fieldValues, () => setFieldValues(INITIAL_VALUES))
+        );
+      } else {
+        dispatch(
+          editApplication(fieldValues, () => {
+            setFieldValues(INITIAL_VALUES);
+            closeEdit(false);
+          })
+        );
+      }
     }
   };
 
   return (
-    <div className="mt-8">
-      <h2 className="block uppercase text-xl mb-2 text-gray-700 font-bold">
-        Record A New Application
-      </h2>
+    <div className="mt-1">
+      {!application && (
+        <h2 className="block uppercase text-xl mb-2 text-gray-700 font-bold">
+          Record A New Application
+        </h2>
+      )}
       <form className="flex flex-col" onSubmit={onSubmitHandler}>
-        <label
-          className="block uppercase text-gray-700 text-xm font-bold mb-2"
-          htmlFor="grid-job-title"
-        >
-          Job Title
-        </label>
-        <input
-          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        <InputField
+          label="Job Title"
           id="grid-job-title"
           name="jobTitle"
           type="text"
           placeholder="Full-Stack Engineer"
-          value={application.jobTitle}
+          value={fieldValues.jobTitle}
           onChange={onChangeHandler}
         />
-        <label
-          className="block uppercase text-gray-700 text-xm font-bold mb-2"
-          htmlFor="grid-company-name"
-        >
-          Company Name
-        </label>
-        <input
-          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        <InputField
+          label="Company Name"
           id="grid-company-name"
           name="companyName"
           type="text"
           placeholder="Peng, NG"
-          value={application.companyName}
+          value={fieldValues.companyName}
           onChange={onChangeHandler}
         />
         <label
@@ -74,20 +91,20 @@ const NewEntry = ({ addApplication }) => {
           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           id="grid-job-description"
           name="jobDescription"
-          rows="8"
+          rows={application ? '4' : '8'}
           placeholder="More about the Job"
-          value={application.jobDescription}
+          value={fieldValues.jobDescription}
           onChange={onChangeHandler}
         />
         <button
           type="submit"
-          className="bg-blue-500 w-32 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+          className="bg-blue-500 w-full md:w-56 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
         >
-          Add
+          {application ? 'Save Changes' : 'Add New Application'}
         </button>
       </form>
     </div>
   );
 };
 
-export default connect(null, { addApplication })(NewEntry);
+export default ApplicationForm;
