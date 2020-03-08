@@ -65,8 +65,10 @@ const Applications = () => {
                 <select
                   className={`border rounded text-gray-700 outline-none ${
                     application.offer && application.concluded
-                      ? `border-teal-400`
-                      : ''
+                      ? 'border-green-500'
+                      : !application.offer && application.concluded
+                      ? 'border-red-300'
+                      : 'border-teal-200'
                   }`}
                   value={
                     application.offer && !application.concluded
