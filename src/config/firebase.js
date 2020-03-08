@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/auth';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -12,8 +13,16 @@ const config = {
 
 firebase.initializeApp(config);
 
-const database = firebase.database;
-const databaseRef = database().ref();
+export const firebaseUIConfig = {
+  signInFlow: 'popup',
+  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  callbacks: {
+    signInSuccessWithAuthResult: () => false,
+  },
+};
 
-export const userRef = databaseRef.child(`user-001`);
+const database = firebase.database;
+
+export const firebaseAuth = firebase.auth;
+export const databaseRef = database().ref();
 export const timestamp = database.ServerValue.TIMESTAMP;
