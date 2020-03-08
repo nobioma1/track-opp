@@ -1,4 +1,4 @@
-import { applicationsRef } from '../firebase';
+import { applicationsRef } from '../config/firebase';
 import { getCounts } from '../utils/getCounts';
 
 export const START_REQUEST = 'START_REQUEST';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ApplicationsNav from './ApplicationsNav';
-import { setCurrentStage } from '../actions/data';
+import { setCurrentStage } from '../../actions/data';
 
 const Applications = () => {
   const [active, setActive] = useState('jobsApplied');
@@ -92,7 +92,7 @@ const Applications = () => {
                   <option value="notAMatch">Not A Match</option>
                 </select>
                 <div className="group relative">
-                  <div class="flex items-center ml-2 cursor-pointer">
+                  <div className="flex items-center ml-2 cursor-pointer">
                     <svg
                       className="fill-current text-gray-500 w-5 h-5 hover:text-blue-500"
                       xmlns="http://www.w3.org/2000/svg"

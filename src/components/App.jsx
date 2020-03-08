@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import Header from './components/Header';
-import Dashboard from './components/Dashboard';
-import Applications from './components/Applications';
-import { getApplications } from './actions/data';
+import Header from './Header';
+import Dashboard from './Dashboard';
+import Applications from './Applications';
+import { getApplications } from '../actions/data';
 
 const App = () => {
   const dispatch = useDispatch();
