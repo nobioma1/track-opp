@@ -1,5 +1,6 @@
-import { applicationsRef } from '../config/firebase';
+import { userRef, timestamp } from '../config/firebase';
 import { getCounts } from '../utils/getCounts';
+import { INITIAL_STATE } from '../reducers/applicationsReducer';
 
 export const START_REQUEST = 'START_REQUEST';
 export const SET_APPLICATIONS = 'SET_APPLICATIONS';
@@ -8,23 +9,27 @@ export const END_REQUEST = 'END_REQUEST';
 
 export const getApplications = () => dispatch => {
   dispatch({ type: START_REQUEST });
-  applicationsRef.on('value', snapshot => {
+  userRef.child('applications').on('value', snapshot => {
     if (snapshot.val()) {
-      const data = getCounts(Object.entries(snapshot.val()));
+      const objectArr = Object.entries(snapshot.val()).reverse();
+      const data = getCounts(objectArr);
       dispatch({ type: SET_APPLICATIONS, payload: data });
+    } else {
+      dispatch({ type: SET_APPLICATIONS, payload: INITIAL_STATE });
     }
   });
 };
 
 export const addApplication = (application, onCompleteFn) => dispatch => {
   dispatch({ type: START_REQUEST });
-  applicationsRef.push(
+  userRef.child('applications').push(
     {
       ...application,
       hired: false,
       interview: false,
       offer: false,
       concluded: false,
+      timestamp,
     },
     () => {
       dispatch({ type: ADD_APPLICATION });
@@ -68,5 +73,32 @@ export const setCurrentStage = (id, value) => dispatch => {
       break;
   }
   // update reference
-  applicationsRef.update(newUpdate, () => dispatch({ type: END_REQUEST }));
+  userRef
+    .child('applications')
+    .update(newUpdate, () => dispatch({ type: END_REQUEST }));
+};
+
+export const deleteApplication = id => dispatch => {
+  dispatch({ type: START_REQUEST });
+  userRef
+    .child('applications')
+    .child(id)
+    .remove(() => dispatch({ type: END_REQUEST }));
+};
+
+export const editApplication = (application, onCompleteFn) => dispatch => {
+  dispatch({ type: START_REQUEST });
+
+  const id = application.id;
+
+  const newUpdate = {};
+  newUpdate[`${id}/jobTitle`] = application.jobTitle;
+  newUpdate[`${id}/companyName`] = application.companyName;
+  newUpdate[`${id}/description`] = application.jobDescription;
+
+  // update reference
+  userRef.child('applications').update(newUpdate, () => {
+    dispatch({ type: END_REQUEST });
+    onCompleteFn();
+  });
 };

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import Header from './Header';
 import Dashboard from './Dashboard';
 import Applications from './Applications';
-import { getApplications } from '../actions/data';
+import { getApplications } from '../actions/applications';
 
 const App = () => {
   const dispatch = useDispatch();
