@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import ApplicationsNav from './ApplicationsNav';
 import { setCurrentStage, deleteApplication } from '../../actions/applications';
@@ -47,6 +48,12 @@ const Applications = () => {
 
   return (
     <div>
+      <Link
+        to="/"
+        className="text-lg text-gray-700 font-medium my-3 hover:text-blue-400"
+      >
+        &#8249; Back to Home
+      </Link>
       <ApplicationsNav
         currentTab={active}
         selectTab={setActive}
