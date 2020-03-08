@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import Header from './Header';
@@ -21,8 +21,9 @@ const App = () => {
       <Header />
       <div className="container max-w-4xl mx-auto pt-16 pb-8 px-2">
         <PrivateRoute exact path="/" component={Dashboard} />
-        <Route exact path="/login" component={Login} />
+        <Route path="/login" component={Login} />
         <PrivateRoute path="/applications" component={Applications} />
+        <Route render={() => <Redirect to="/" />} />
       </div>
     </Router>
   );
