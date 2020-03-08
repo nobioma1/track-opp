@@ -1,26 +1,30 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import Header from './Header';
 import Dashboard from './Dashboard';
 import Applications from './Applications';
-import { getApplications } from '../actions/applications';
+import Login from './Auth/Login';
+import { getUser } from '../actions/auth';
+import PrivateRoute from './PrivateRoute';
 
 const App = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getApplications());
-  }, [dispatch]);
+    dispatch(getUser());
+  }, []);
 
   return (
-    <BrowserRouter>
+    <Router>
       <Header />
       <div className="container max-w-4xl mx-auto pt-16 pb-8 px-2">
-        <Route exact path="/" component={Dashboard} />
-        <Route exact path="/applications" component={Applications} />
+        <PrivateRoute exact path="/" component={Dashboard} />
+        <Route exact path="/login" component={Login} />
+        <PrivateRoute path="/applications" component={Applications} />
       </div>
-    </BrowserRouter>
+    </Router>
   );
 };
 
