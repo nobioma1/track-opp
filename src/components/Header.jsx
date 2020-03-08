@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div className="fixed w-full bg-blue-500 py-2 px-2 lg:px-6 flex items-center justify-between">
+    <div className="fixed z-40 w-full bg-blue-500 py-2 px-2 lg:px-6 flex items-center justify-between">
       <Link to="/" className="text-2xl font-extrabold text-white">
         TrackOpp
       </Link>
