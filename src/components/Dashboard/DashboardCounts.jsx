@@ -6,8 +6,8 @@ const DashboardCounts = () => {
     ({ applicationsReducer }) => applicationsReducer.counts
   );
   return (
-    <div className="rounded p-2 min-h-40 overflow-hidden shadow-lg mb-8">
-      <h2 className="text-xl text-gray-700 uppercase font-bold my-2">
+    <div className="rounded p-2 min-h-40 overflow-hidden shadow-lg mb-8 border">
+      <h2 className="text-xl text-gray-700 uppercase font-bold mb-2">
         Dashboard
       </h2>
       <div className="flex flex-wrap justify-between px-2">
