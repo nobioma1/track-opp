@@ -91,7 +91,7 @@ const ApplicationForm = ({ application, closeEdit }) => {
           className="block uppercase text-gray-700 text-xm font-bold mb-2"
           htmlFor="grid-job-description"
         >
-          Job Description
+          Job Description/Notes
         </label>
         <textarea
           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

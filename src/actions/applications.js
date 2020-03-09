@@ -96,7 +96,7 @@ export const editApplication = (application, onCompleteFn) => dispatch => {
   const newUpdate = {};
   newUpdate[`${id}/jobTitle`] = application.jobTitle;
   newUpdate[`${id}/companyName`] = application.companyName;
-  newUpdate[`${id}/description`] = application.jobDescription;
+  newUpdate[`${id}/jobDescription`] = application.jobDescription;
 
   // update reference
   databaseRef
