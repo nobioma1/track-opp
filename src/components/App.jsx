@@ -8,9 +8,12 @@ import Applications from './Applications';
 import Login from './Auth/Login';
 import { getUser } from '../actions/auth';
 import PrivateRoute from './PrivateRoute';
+import ReactGA from 'react-ga';
 
 const App = () => {
   const dispatch = useDispatch();
+  ReactGA.initialize(process.env.REACT_APP_TRACKING_CODE);
+  ReactGA.pageview(window.location.pathname + window.location.search);
 
   useEffect(() => {
     dispatch(getUser());
