@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import ApplicationForm from './ApplicationForm';
 
-const ApplicationItem = ({
-  application,
-  updateCurrentStage,
-  onEdit,
-  onDelete,
-}) => {
+const ApplicationItem = ({ application, updateCurrentStage, onDelete }) => {
   const [isEdit, setEdit] = useState(false);
 
   return (
