@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import moment from 'moment';
+
 import ApplicationForm from './ApplicationForm';
 
 const ApplicationItem = ({ application, updateCurrentStage, onDelete }) => {
@@ -99,8 +101,11 @@ const ApplicationItem = ({ application, updateCurrentStage, onDelete }) => {
           <p className="text-gray-700 font-medium text-base">
             {application.companyName}
           </p>
-          <p className="text-gray-500 text-base">
+          <p className="text-gray-700 text-base">
             {application.jobDescription}
+          </p>
+          <p className="text-gray-500 text-sm mt-1">
+            Added {moment(application.timestamp).fromNow()}
           </p>
         </React.Fragment>
       )}
