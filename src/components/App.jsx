@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import ReactGA from 'react-ga';
 
 import Header from './Header';
 import Dashboard from './Dashboard';
@@ -8,7 +9,6 @@ import Applications from './Applications';
 import Login from './Auth/Login';
 import { getUser } from '../actions/auth';
 import PrivateRoute from './PrivateRoute';
-import ReactGA from 'react-ga';
 
 const App = () => {
   const dispatch = useDispatch();
