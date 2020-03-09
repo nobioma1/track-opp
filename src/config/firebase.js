@@ -15,7 +15,7 @@ const config = {
 };
 
 firebase.initializeApp(config);
-firebase.analytics();
+// firebase.analytics();
 
 export const firebaseUIConfig = {
   signInFlow: 'popup',
