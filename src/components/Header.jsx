@@ -15,19 +15,12 @@ const Header = () => {
         TrackOpp
       </Link>
       {user && (
-        <div className="flex items-center">
-          <Link
-            to="/applications"
-            className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white lg:mt-0"
-          >
-            Applications
-          </Link>
-          <div
-            className="w-6 opacity-2 cursor-pointer ml-2"
-            onClick={() => dispatch(Logout())}
-          >
-            <img className="w-full" src={pwrbtn} alt="logout button" />
-          </div>
+        <div
+          className="text-sm transition duration-500 ease-in-out flex items-center p-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-white-500 hover:bg-red-500 lg:mt-0 cursor-pointer ml-2"
+          onClick={() => dispatch(Logout())}
+        >
+          <p className="mr-1">{user && user.displayName.split(' ')[0]}</p>
+          <img className="w-5 opacity-2" src={pwrbtn} alt="logout button" />
         </div>
       )}
     </div>
