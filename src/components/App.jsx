@@ -22,7 +22,7 @@ const App = () => {
   return (
     <Router>
       <Header />
-      <div className="container max-w-4xl mx-auto pt-16 pb-8 px-2">
+      <div className="container antialiased max-w-4xl mx-auto pt-16 pb-8 px-2">
         <Route exact path="/" component={Login} />
         <PrivateRoute path="/dash" component={Dashboard} />
         <PrivateRoute path="/applications" component={Applications} />
