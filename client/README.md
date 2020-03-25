@@ -1,46 +1,39 @@
 # Keep Track - TrackOpp
 
-This is a web application. User can sign in and keep track of job applications.
+This is a Client and Server application, user can sign in and keep track of job applications and its state.
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## Installing
+#### To set up client server
 
-* Clone Repository
+- Clone Repository
 
-  ```$ git clone https://github.com/nobioma1/track-opp.git```
+  `$ git clone https://github.com/nobioma1/track-opp.git`
 
-* Install Node Modules
+- Change directory into client folder
 
-  ```$ yarn install```
+  `cd client`
 
-* Setup Environment Variables (.env) on root folder
+- Install Node Modules
 
-  ```
-    REACT_APP_API_KEY 
-    REACT_APP_AUTH_DOMAIN 
-    REACT_APP_DATABASE_URL
-    REACT_APP_PROJECT_ID
-    REACT_APP_STORAGE_BUCKET
-    REACT_APP_MESSAGING_SENDER_ID
-    REACT_APP_APP_ID
-    REACT_APP_MEASUREMENT_ID 
-    REACT_APP_TRACKING_CODE
-  ```
+  `$ yarn`
 
-* To start app
+- Setup Environment Variables (.env) on root folder
 
-  ```$ yarn start```
+  `Check .env.sample file for environment variables`
+
+- To start app
+
+  `$ yarn start`
 
 ## Built With
 
-* [Javascript](http://es6-features.org/)
+- [Javascript](http://es6-features.org/)
 
-* [React](https://reactjs.org/)
+- [React](https://reactjs.org/)
 
-* [Firebase](https://firebase.google.com/)
+- [Firebase](https://firebase.google.com/)
 
-* [Redux](https://redux.js.org/)
-
+- [Redux](https://redux.js.org/)
