@@ -1,6 +1,6 @@
 # Keep Track - TrackOpp
 
-This is a lient web application, user can sign in and keep track of job applications and its state.
+This is a client web application, user can sign in and keep track of job applications and its state.
 
 ## Getting Started
 
