@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import ApplicationItem from './ApplicationItem';
 import ApplicationsNav from './ApplicationsNav';
+import { filterApplications } from './filterApplications';
+import Layout from '../Layout';
 import Search from '../Search';
 import { setCurrentStage, deleteApplication } from '../../actions/applications';
 import nodata from '../../assets/nodata.svg';
-import { filterApplications } from './filterApplications';
 
 const Applications = () => {
   const [active, setActive] = useState('jobsApplied');
@@ -36,7 +37,7 @@ const Applications = () => {
   };
 
   return (
-    <div>
+    <Layout>
       <Link
         to="/dash"
         className="text-lg text-gray-700 font-medium my-3 hover:text-blue-400"
@@ -77,7 +78,7 @@ const Applications = () => {
           </div>
         )}
       </div>
-    </div>
+    </Layout>
   );
 };
 

@@ -1,14 +1,17 @@
 import React from 'react';
 
-import DashboardCounts from './DashboardCounts';
 import ApplicationForm from '../Applications/ApplicationForm';
+import DashboardCounts from './DashboardCounts';
+import Layout from '../Layout';
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-col">
-      <DashboardCounts />
-      <ApplicationForm />
-    </div>
+    <Layout>
+      <div className="flex flex-col">
+        <DashboardCounts />
+        <ApplicationForm />
+      </div>
+    </Layout>
   );
 };
 
