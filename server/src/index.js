@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 
-const PORT = process.env.PORT || 3001;
+import { PORT } from './config';
 
 const app = express();
 
