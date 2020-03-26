@@ -9,10 +9,11 @@ import Applications from './Applications';
 import Landing from './Landing';
 import { getUser } from '../actions/auth';
 import PrivateRoute from './PrivateRoute';
+import { GOOGLE_ANALYTICS_TRACKING_CODE } from '../config';
 
 const App = () => {
   const dispatch = useDispatch();
-  ReactGA.initialize(process.env.REACT_APP_TRACKING_CODE);
+  ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_CODE);
   ReactGA.pageview(window.location.pathname + window.location.search);
 
   useEffect(() => {
