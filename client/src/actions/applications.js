@@ -1,14 +1,15 @@
 import { databaseRef, timestamp, firebaseAuth } from '../config/firebase';
 import { getCounts } from '../utils/getCounts';
 import { INITIAL_STATE } from '../reducers/applicationsReducer';
+import { saveToSuggestions } from './jobSuggestions';
 
-export const START_REQUEST = 'START_REQUEST';
-export const SET_APPLICATIONS = 'SET_APPLICATIONS';
 export const ADD_APPLICATION = 'ADD_APPLICATION';
-export const END_REQUEST = 'END_REQUEST';
+export const END_APPLICATION_REQUEST = 'END_APPLICATION_REQUEST';
+export const SET_APPLICATIONS = 'SET_APPLICATIONS';
+export const START_APPLICATION_REQUEST = 'START_APPLICATION_REQUEST';
 
 export const getApplications = () => dispatch => {
-  dispatch({ type: START_REQUEST });
+  dispatch({ type: START_APPLICATION_REQUEST });
   databaseRef
     .child(`${firebaseAuth().currentUser.uid}/applications`)
     .on('value', snapshot => {
@@ -23,8 +24,9 @@ export const getApplications = () => dispatch => {
 };
 
 export const addApplication = (application, onCompleteFn) => dispatch => {
-  dispatch({ type: START_REQUEST });
-  databaseRef.child(`${firebaseAuth().currentUser.uid}/applications`).push(
+  const userID = firebaseAuth().currentUser.uid;
+  dispatch({ type: START_APPLICATION_REQUEST });
+  databaseRef.child(`${userID}/applications`).push(
     {
       ...application,
       hired: false,
@@ -35,6 +37,8 @@ export const addApplication = (application, onCompleteFn) => dispatch => {
     },
     () => {
       dispatch({ type: ADD_APPLICATION });
+      // save title to suggestions API
+      dispatch(saveToSuggestions({ jobTitle: application.jobTitle, userID }));
       onCompleteFn();
     }
   );
@@ -42,7 +46,7 @@ export const addApplication = (application, onCompleteFn) => dispatch => {
 
 export const setCurrentStage = (id, value) => dispatch => {
   // object to hold changes to be made
-  dispatch({ type: START_REQUEST });
+  dispatch({ type: START_APPLICATION_REQUEST });
   const newUpdate = {};
   switch (value) {
     case 'review':
@@ -77,19 +81,19 @@ export const setCurrentStage = (id, value) => dispatch => {
   // update reference
   databaseRef
     .child(`${firebaseAuth().currentUser.uid}/applications`)
-    .update(newUpdate, () => dispatch({ type: END_REQUEST }));
+    .update(newUpdate, () => dispatch({ type: END_APPLICATION_REQUEST }));
 };
 
 export const deleteApplication = id => dispatch => {
-  dispatch({ type: START_REQUEST });
+  dispatch({ type: START_APPLICATION_REQUEST });
   databaseRef
     .child(`${firebaseAuth().currentUser.uid}/applications`)
     .child(id)
-    .remove(() => dispatch({ type: END_REQUEST }));
+    .remove(() => dispatch({ type: END_APPLICATION_REQUEST }));
 };
 
 export const editApplication = (application, onCompleteFn) => dispatch => {
-  dispatch({ type: START_REQUEST });
+  dispatch({ type: START_APPLICATION_REQUEST });
 
   const id = application.id;
 
@@ -102,7 +106,7 @@ export const editApplication = (application, onCompleteFn) => dispatch => {
   databaseRef
     .child(`${firebaseAuth().currentUser.uid}/applications`)
     .update(newUpdate, () => {
-      dispatch({ type: END_REQUEST });
+      dispatch({ type: END_APPLICATION_REQUEST });
       onCompleteFn();
     });
 };
