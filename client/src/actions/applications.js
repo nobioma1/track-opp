@@ -1,7 +1,6 @@
 import { databaseRef, timestamp, firebaseAuth } from '../config/firebase';
 import { getCounts } from '../utils/getCounts';
 import { INITIAL_STATE } from '../reducers/applicationsReducer';
-import { saveToSuggestions } from './jobSuggestions';
 
 export const ADD_APPLICATION = 'ADD_APPLICATION';
 export const END_APPLICATION_REQUEST = 'END_APPLICATION_REQUEST';
@@ -37,8 +36,6 @@ export const addApplication = (application, onCompleteFn) => dispatch => {
     },
     () => {
       dispatch({ type: ADD_APPLICATION });
-      // save title to suggestions API
-      dispatch(saveToSuggestions({ jobTitle: application.jobTitle, userID }));
       onCompleteFn();
     }
   );
