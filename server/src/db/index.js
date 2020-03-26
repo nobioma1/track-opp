@@ -1,5 +1,1 @@
-import redis from 'redis';
-
-const redisClient = redis.createClient(PORT_REDIS);
-
-export default redisClient;
+export { default as redis } from './setupRedis';
