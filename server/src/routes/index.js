@@ -30,7 +30,7 @@ router.post('/subscribe/:userId', checkField, async (req, res, next) => {
   const { field } = req.body;
   try {
     const userSubscriptions = await redisDB.getValue(req.params.userId);
-    if (userSubscriptions.includes(field)) {
+    if (userSubscriptions && userSubscriptions.includes(field)) {
       res.status(200).send({ message: 'Already subscribed' });
     }
     const success = await redisDB.setValue(req.params.userId, [
