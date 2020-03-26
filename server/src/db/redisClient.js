@@ -1,9 +1,9 @@
 const { promisify } = require('util');
 const redis = require('redis');
 
-const { PORT_REDIS } = require('../config');
+const { REDIS_URL } = require('../config');
 
-const redisClient = redis.createClient(PORT_REDIS);
+const redisClient = redis.createClient(REDIS_URL);
 const getAsync = promisify(redisClient.get).bind(redisClient);
 const setAsync = promisify(redisClient.set).bind(redisClient);
 
