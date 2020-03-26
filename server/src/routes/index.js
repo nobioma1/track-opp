@@ -39,7 +39,7 @@ router.post('/subscribe/:userId', checkField, async (req, res, next) => {
     ]);
     res.status(201).send({ name: field, subscribed: !!success });
   } catch (error) {
-    next(e);
+    next(error);
   }
 });
 
@@ -51,7 +51,7 @@ router.post('/unsubscribe/:userId', checkField, async (req, res, next) => {
     await redisDB.setValue(req.params.userId, update);
     res.status(204).end();
   } catch (error) {
-    next(e);
+    next(error);
   }
 });
 
