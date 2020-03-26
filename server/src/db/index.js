@@ -1,1 +1,3 @@
-export { default as redis } from './setupRedis';
+const redis = require('./setupRedis');
+
+module.exports = { redis };

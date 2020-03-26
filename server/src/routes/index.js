@@ -1,4 +1,4 @@
-import { Router } from 'express';
+const { Router } = require('express');
 
 const router = Router();
 
@@ -15,4 +15,4 @@ router.post('/suggestions', (req, res) => {
   res.end();
 });
 
-export default router;
+module.exports = router;
