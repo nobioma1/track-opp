@@ -12,6 +12,8 @@ This is a client web application, user can sign in and keep track of job applica
 
 - [Redux](https://redux.js.org/)
 
+- [Express](https://expressjs.com/)
+
 - [Redis](https://redis.io/)
 
 - [Puppeteer](https://github.com/puppeteer/puppeteer/)
