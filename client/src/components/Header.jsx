@@ -24,7 +24,7 @@ const Header = () => {
             <img className="w-5 opacity-2" src={pwrbtn} alt="logout button" />
           </div>
           <img
-            className="w-10 rounded-full"
+            className="w-10 h-10 rounded-full"
             src={user.photoURL}
             alt="user avatar"
           />
