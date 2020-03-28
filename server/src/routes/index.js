@@ -6,11 +6,13 @@ const checkField = require('../middlewares/checkField');
 const router = Router();
 
 const FIELDS = [
-  'Software Engineer',
-  'React',
-  'Python',
-  'JavaScript',
-  'FullStack Engineer',
+  // 'Software Engineer',
+  // 'React',
+  // 'Python',
+  // 'JavaScript',
+  // 'FullStack Engineer',
+  'Junior(Remote)',
+  'All Roles',
 ];
 
 router.get('/fields/:userId', async (req, res, next) => {
@@ -53,6 +55,17 @@ router.post('/unsubscribe/:userId', checkField, async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+router.get('/postings/:userId', async (req, res, next) => {
+  try {
+    const postings = await redisDB.getValue('jobPostings');
+    const subscriptions = await redisDB.getValue(req.params.userId);
+    // structure data
+    // compare what posting user is subscribed to
+    // send response to the frontend as an array
+    res.status(200).end();
+  } catch (error) {}
 });
 
 module.exports = router;
