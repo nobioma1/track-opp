@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getFields } from '../../actions/jobSuggestions';
+import { postings } from '../../actions/jobSuggestions';
 
 const Suggestions = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const Suggestions = () => {
   );
 
   // useEffect(() => {
-  //   dispatch(getFields());
+  //   dispatch(postings());
   // }, [dispatch]);
 
   return (
@@ -26,7 +26,8 @@ const Suggestions = () => {
         ))
       ) : (
         <p className="text-sm font-medium text-gray-700 text-center">
-          There are no suggestions at the moment
+          There are no suggestions at the moment <br />
+          Feature Coming Soon!
         </p>
       )}
     </div>

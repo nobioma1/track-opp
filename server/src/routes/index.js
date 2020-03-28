@@ -6,11 +6,13 @@ const checkField = require('../middlewares/checkField');
 const router = Router();
 
 const FIELDS = [
-  'Software Engineer',
-  'React',
-  'Python',
-  'JavaScript',
-  'FullStack Engineer',
+  // 'Software Engineer',
+  // 'React',
+  // 'Python',
+  // 'JavaScript',
+  // 'FullStack Engineer',
+  'Junior(Remote)',
+  'All Roles',
 ];
 
 router.get('/fields/:userId', async (req, res, next) => {
@@ -30,16 +32,16 @@ router.post('/subscribe/:userId', checkField, async (req, res, next) => {
   const { field } = req.body;
   try {
     const userSubscriptions = await redisDB.getValue(req.params.userId);
-    if (userSubscriptions.includes(field)) {
-      res.status(200).send({ message: 'Already subscribed' });
+    if (userSubscriptions && userSubscriptions.includes(field)) {
+      return res.status(200).send({ message: 'Already subscribed' });
     }
     const success = await redisDB.setValue(req.params.userId, [
-      ...userSubscriptions,
+      ...(userSubscriptions || []),
       field,
     ]);
     res.status(201).send({ name: field, subscribed: !!success });
   } catch (error) {
-    next(e);
+    next(error);
   }
 });
 
@@ -51,8 +53,19 @@ router.post('/unsubscribe/:userId', checkField, async (req, res, next) => {
     await redisDB.setValue(req.params.userId, update);
     res.status(204).end();
   } catch (error) {
-    next(e);
+    next(error);
   }
+});
+
+router.get('/postings/:userId', async (req, res, next) => {
+  try {
+    const postings = await redisDB.getValue('jobPostings');
+    const subscriptions = await redisDB.getValue(req.params.userId);
+    // structure data
+    // compare what posting user is subscribed to
+    // send response to the frontend as an array
+    res.status(200).end();
+  } catch (error) {}
 });
 
 module.exports = router;

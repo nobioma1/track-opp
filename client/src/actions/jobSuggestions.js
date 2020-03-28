@@ -34,3 +34,10 @@ export const unsubscribe = field => async dispatch => {
     dispatch(getFields());
   } catch (error) {}
 };
+
+export const postings = () => async dispatch => {
+  const userId = firebaseAuth().currentUser.uid;
+  try {
+    const postings = await axios.get(`${API_URL}/postings/${userId}`);
+  } catch (error) {}
+};
