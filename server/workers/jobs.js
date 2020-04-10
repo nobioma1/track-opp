@@ -1,11 +1,20 @@
 const cron = require('node-cron');
 
-const scrapeROK = require('../scrappers/scrapeROK');
+const scrapeHellner = require('../scrappers/scrapeHellner');
 const redisClient = require('../src/db/redisClient');
 
-cron.schedule('00 7 * * *', async () => {
-  const allRoles = await scrapeROK('https://remoteok.io');
-  const juniorRoles = await scrapeROK('https://remoteok.io/remote-junior-jobs');
+function workerJobs() {
+  console.log('Worker Launched...');
 
-  await redisClient.setValue('jobPostings', { allRoles, juniorRoles });
-});
+  cron.schedule('00 7 * * *', async () => {
+    console.log('Fetching new data...');
+    // const allRoles = await scrapeROK('https://remoteok.io');
+    // const juniorRoles = await scrapeROK('https://remoteok.io/remote-junior-jobs');
+
+    const postings = await scrapeHellner();
+    await redisClient.setValue('jobPostings', { postings });
+    console.log('Fetch complete and saved...');
+  });
+}
+
+workerJobs();
