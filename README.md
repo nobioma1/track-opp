@@ -19,3 +19,5 @@ This is a client web application, user can sign in and keep track of job applica
 - [Puppeteer](https://github.com/puppeteer/puppeteer/)
 
 - [node-cron](https://www.npmjs.com/package/node-cron)
+
+- [PM2](https://www.npmjs.com/package/pm2)
