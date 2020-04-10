@@ -11,13 +11,13 @@ async function scrapeROK(url) {
         const jobsEl = section.querySelectorAll('.job');
         const postings = {};
 
-        jobsEl.forEach(el => {
+        jobsEl.forEach((el) => {
           const link = `https://remoteok.io${el.dataset.url}`;
           const jobTitle = el.querySelector('.company > h2').textContent;
           const company = el.querySelector('.company .companyLink > h3')
             .textContent;
           const tags = Array.from(el.querySelectorAll('.tag')).map(
-            item => item.textContent
+            (item) => item.textContent
           );
           const jobId = el.getAttribute('id');
           const postedAt = el.querySelector('.time').textContent;
@@ -47,5 +47,7 @@ async function scrapeROK(url) {
     console.log(error);
   }
 }
+
+scrapeROK('https://remoteok.io/remote-junior-jobs');
 
 module.exports = scrapeROK;

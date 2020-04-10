@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  getFields,
-  subscribe,
-  unsubscribe,
-} from '../../actions/jobSuggestions';
+import { getFields, subscribe, unsubscribe } from '../../actions/jobPosting';
 import tick from '../../assets/tick.svg';
 
 const Fields = () => {
   const dispatch = useDispatch();
   const fields = useSelector(
-    ({ jobSuggestionsReducer }) => jobSuggestionsReducer.fields
+    ({ jobPostingReducer }) => jobPostingReducer.fields
   );
 
   useEffect(() => {
