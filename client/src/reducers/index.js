@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 
 import applicationsReducer from './applicationsReducer';
 import authReducer from './authReducer';
-import jobSuggestionsReducer from './jobSuggestionsReducer';
+import jobPostingReducer from './jobPostingReducer';
 
 const rootReducer = combineReducers({
   applicationsReducer,
   authReducer,
-  jobSuggestionsReducer,
+  jobPostingReducer,
 });
 
 export default rootReducer;
