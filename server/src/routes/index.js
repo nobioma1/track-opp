@@ -12,7 +12,7 @@ router.get('/fields/:userId', async (req, res, next) => {
     const userSubscriptions = await redisDB.getValue(req.params.userId);
     const subscriptions = FIELDS.map((field) => ({
       name: field,
-      subscribed: !!userSubscriptions[field],
+      subscribed: userSubscriptions && !!userSubscriptions[field],
     }));
     res.status(200).send({ fields: subscriptions });
   } catch (error) {
@@ -25,7 +25,7 @@ router.post('/subscribe/:userId', checkField, async (req, res, next) => {
 
   try {
     const userSubscriptions = await redisDB.getValue(req.params.userId);
-    if (userSubscriptions[field]) {
+    if (userSubscriptions && userSubscriptions[field]) {
       return res.status(200).send({ message: 'Already subscribed' });
     }
     const success = await redisDB.setValue(req.params.userId, {
