@@ -52,12 +52,22 @@ router.post('/unsubscribe/:userId', checkField, async (req, res, next) => {
 
 router.get('/postings/:userId', async (req, res, next) => {
   try {
-    const postings = await redisDB.getValue('jobPostings');
+    const { postings } = await redisDB.getValue('jobPostings');
     const subscriptions = await redisDB.getValue(req.params.userId);
-    // structure data
-    // compare what posting user is subscribed to
-    // send response to the frontend as an array
-    res.status(200).end();
+    const subscribedPostings = postings.jobs.filter(
+      (posting) =>
+        posting.position in subscriptions ||
+        posting.remoteOrLocal in subscriptions ||
+        posting.fullTimeOrPartTime in subscriptions ||
+        posting.experience in subscriptions
+    );
+
+    const randStart = Math.floor(Math.random() * subscribedPostings.length - 1);
+
+    res.status(200).json({
+      source: postings.source,
+      subscribedPostings: subscribedPostings.slice(randStart, randStart + 3),
+    });
   } catch (error) {}
 });
 
