@@ -52,23 +52,35 @@ router.post('/unsubscribe/:userId', checkField, async (req, res, next) => {
 
 router.get('/postings/:userId', async (req, res, next) => {
   try {
-    const { postings } = await redisDB.getValue('jobPostings');
+    const jobPostings = await redisDB.getValue('jobPostings');
     const subscriptions = await redisDB.getValue(req.params.userId);
-    const subscribedPostings = postings.jobs.filter(
-      (posting) =>
-        posting.position in subscriptions ||
-        posting.remoteOrLocal in subscriptions ||
-        posting.fullTimeOrPartTime in subscriptions ||
-        posting.experience in subscriptions
-    );
 
-    const randStart = Math.floor(Math.random() * subscribedPostings.length - 1);
+    if (jobPostings && subscriptions) {
+      const subscribedPostings = jobPostings.jobs.filter(
+        (posting) =>
+          posting.position in subscriptions ||
+          posting.remoteOrLocal in subscriptions ||
+          posting.fullTimeOrPartTime in subscriptions ||
+          posting.experience in subscriptions
+      );
 
-    res.status(200).json({
-      source: postings.source,
-      subscribedPostings: subscribedPostings.slice(randStart, randStart + 3),
+      const randStart = Math.floor(
+        Math.random() * subscribedPostings.length - 1
+      );
+
+      return res.status(200).json({
+        source: jobPostings.source,
+        subscribedPostings: subscribedPostings.slice(randStart, randStart + 3),
+      });
+    }
+
+    return res.status(200).json({
+      source: null,
+      subscribedPostings: [],
     });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
