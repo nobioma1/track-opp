@@ -12,7 +12,7 @@ function workerJobs() {
     // const juniorRoles = await scrapeROK('https://remoteok.io/remote-junior-jobs');
 
     const postings = await scrapeHellner();
-    await redisClient.setValue('jobPostings', { postings });
+    await redisClient.setValue('jobPostings', postings);
     console.log('Fetch complete and saved...');
   });
 }
