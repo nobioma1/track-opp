@@ -57,12 +57,12 @@ router.get('/postings/:userId', async (req, res, next) => {
 
     if (jobPostings && subscriptions) {
       const subscribedPostings = jobPostings.jobs.filter(
-      (posting) =>
-        posting.position in subscriptions ||
-        posting.remoteOrLocal in subscriptions ||
-        posting.fullTimeOrPartTime in subscriptions ||
-        posting.experience in subscriptions
-    );
+        (posting) =>
+          posting.position in subscriptions ||
+          posting.remoteOrLocal in subscriptions ||
+          posting.fullTimeOrPartTime in subscriptions ||
+          posting.experience in subscriptions
+      );
 
       const randStart = Math.floor(
         Math.random() * subscribedPostings.length - 1
@@ -70,9 +70,17 @@ router.get('/postings/:userId', async (req, res, next) => {
 
       return res.status(200).json({
         source: jobPostings.source,
-      subscribedPostings: subscribedPostings.slice(randStart, randStart + 3),
-    });
+        subscribedPostings: subscribedPostings.slice(randStart, randStart + 3),
+      });
     }
+
+    return res.status(200).json({
+      source: null,
+      subscribedPostings: [],
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
