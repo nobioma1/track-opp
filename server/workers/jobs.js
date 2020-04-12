@@ -4,7 +4,7 @@ const scrapeHellner = require('../scrappers/scrapeHellner');
 const redisClient = require('../src/db/redisClient');
 
 function workerJobs() {
-  console.log('Worker Launched...');
+  console.log('Worker Launched....');
 
   cron.schedule('0 8 * * *', async () => {
     console.log('Fetching new data....');
