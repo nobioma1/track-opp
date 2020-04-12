@@ -13,7 +13,7 @@ function workerJobs() {
 
     const postings = await scrapeHellner();
     await redisClient.setValue('jobPostings', { ...postings });
-    console.log('Fetch complete and saved...');
+    console.log('Fetch complete and saved....');
   });
 }
 
