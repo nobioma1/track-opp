@@ -9,7 +9,7 @@ export const INITIAL_STATE = {
   isLoading: false,
   fields: [],
   subscribedPostings: [],
-  source: {},
+  source: null,
 };
 
 const jobPostingReducer = (state = INITIAL_STATE, action) => {
