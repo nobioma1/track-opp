@@ -6,7 +6,7 @@ const redisClient = require('../src/db/redisClient');
 function workerJobs() {
   console.log('Worker Launched....');
 
-  cron.schedule('*/58 * * * *', async () => {
+  cron.schedule('0 9 * * *', async () => {
     console.log('Fetching new data....');
     // const allRoles = await scrapeROK('https://remoteok.io');
     // const juniorRoles = await scrapeROK('https://remoteok.io/remote-junior-jobs');
