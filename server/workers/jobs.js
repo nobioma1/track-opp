@@ -16,3 +16,5 @@ function workerJobs() {
     console.log('Fetch complete and saved....');
   });
 }
+
+workerJobs();
