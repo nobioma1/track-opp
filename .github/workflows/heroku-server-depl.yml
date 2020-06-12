@@ -1,4 +1,4 @@
-name: server-depl
+name: heroku-server-depl
 
 on:
   push:
