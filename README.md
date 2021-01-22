@@ -35,5 +35,3 @@ These instructions will get you a copy of the project up and running on your loc
 - [React](https://reactjs.org/)
 
 - [Firebase](https://firebase.google.com/)
-
-- [Redux](https://redux.js.org/)
