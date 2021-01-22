@@ -1,8 +1,10 @@
+import ThemeProvider from '../Theme';
+
 const App = () => {
   return (
-    <div>
+    <ThemeProvider>
       <h1>App</h1>
-    </div>
+    </ThemeProvider>
   );
 };
 
