@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import 'typeface-lato';
 
 import theme from './customTheme';
 
