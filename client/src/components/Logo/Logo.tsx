@@ -5,7 +5,7 @@ import LogoImg from '../../assets/logo.svg';
 
 type Props = {
   to: string;
-  marginBottom?: number;
+  marginBottom?: number | { [key: string]: number };
 };
 
 const Logo: React.FC<Props> = ({ to, ...styles }) => {

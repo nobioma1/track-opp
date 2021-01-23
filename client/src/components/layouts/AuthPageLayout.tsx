@@ -18,8 +18,14 @@ const AuthPageLayout: React.FC = ({ children }) => {
         backgroundColor="gray.50"
       >
         <Box width={{ lg: '28rem' }} margin={{ lg: '0 auto' }}>
-          <Logo to="/" marginBottom={12} />
-          <Box>{children}</Box>
+          <Box
+            backgroundColor="gray.50"
+            position={{ base: 'fixed', md: 'relative' }}
+            width={{ base: '100%', md: 'initial' }}
+          >
+            <Logo to="/" marginBottom={{ md: 12 }} />
+          </Box>
+          <Box paddingTop={{ base: 14, md: 'initial' }}>{children}</Box>
         </Box>
       </Box>
       <Box
