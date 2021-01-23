@@ -16,8 +16,8 @@ export interface CreateAccountFormData {
 const createAccountSchema = yup.object().shape({
   firstName: yup.string().label('Firstname').required(),
   lastName: yup.string().label('Lastname').required(),
-  email: yup.string().label('Email').required(),
-  password: yup.string().label('Password').required(),
+  email: yup.string().email().label('Email').required(),
+  password: yup.string().min(8).label('Password').required(),
 });
 
 const CreateAccount = () => {

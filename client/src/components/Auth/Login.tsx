@@ -12,7 +12,7 @@ export interface LoginFormData {
 }
 
 const loginSchema = yup.object().shape({
-  email: yup.string().label('Email').required(),
+  email: yup.string().email().label('Email').required(),
   password: yup.string().label('Password').required(),
 });
 

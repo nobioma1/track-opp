@@ -11,8 +11,12 @@ export interface ResetPasswordFormData {
 }
 
 const resetPasswordSchema = yup.object().shape({
-  newPassword: yup.string().label('New Password').required(),
-  confirmPassword: yup.string().label('Confirm Password').required(),
+  newPassword: yup.string().label('New Password').min(8).required(),
+  confirmPassword: yup
+    .mixed()
+    .test('match', 'Passwords do not match', function () {
+      return this.parent.newPassword === this.parent.confirmPassword;
+    }),
 });
 
 const ResetPassword = () => {

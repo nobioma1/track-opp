@@ -10,7 +10,7 @@ export interface ForgotPasswordFormData {
 }
 
 const forgotPasswordSchema = yup.object().shape({
-  email: yup.string().label('E-mail').required(),
+  email: yup.string().email().label('E-mail').required(),
 });
 
 const ForgotPassword = () => {
