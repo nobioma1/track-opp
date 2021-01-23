@@ -15,6 +15,7 @@ const AuthPageLayout: React.FC = ({ children }) => {
         paddingBottom={12}
         height="100vh"
         overflowY="scroll"
+        backgroundColor="gray.50"
       >
         <Box width={{ lg: '28rem' }} margin={{ lg: '0 auto' }}>
           <Logo to="/" marginBottom={12} />
