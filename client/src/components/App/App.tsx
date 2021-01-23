@@ -1,9 +1,14 @@
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import ThemeProvider from '../Theme';
+import AppRoute from '../../routes';
 
 const App = () => {
   return (
     <ThemeProvider>
-      <h1>App</h1>
+      <Router>
+        <AppRoute />
+      </Router>
     </ThemeProvider>
   );
 };
