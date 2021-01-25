@@ -1,12 +1,12 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { AuthPageLayout } from '../components/layouts';
+import { AuthPageLayout } from 'layouts';
 import {
   CreateAccount,
   ForgotPassword,
   Login,
   ResetPassword,
-} from '../components/Auth';
+} from 'components/Auth';
 
 const UnAuthenticatedRoutes = () => {
   return (
