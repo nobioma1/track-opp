@@ -11,12 +11,16 @@ type Props = {
 const Logo: React.FC<Props> = ({ to, ...styles }) => {
   return (
     <Link to={to}>
-      <Flex {...styles}>
-        <Box width="22px" height="22px" marginRight={2}>
+      <Flex alignItems="center" {...styles}>
+        <Box
+          width={{ base: '15px', md: '22px' }}
+          height={{ base: '15px', md: '22px' }}
+          marginRight={2}
+        >
           <Image src={LogoImg} alt="jobhuntpad" fallback={<div></div>} />
         </Box>
-        <Heading as="h1" fontSize="xl">
-          Jobhuntpad
+        <Heading as="h1" fontSize={{ base: 'md', md: 'xl' }}>
+          JobHuntPad
         </Heading>
       </Flex>
     </Link>
