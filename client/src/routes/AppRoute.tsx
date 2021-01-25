@@ -1,14 +1,41 @@
+import { useEffect } from 'react';
+
+import { useAuthContext, useFirebaseContext } from 'hooks';
 import AuthenticatedRoutes from './AuthenticatedRoutes';
 import UnAuthenticatedRoutes from './UnAuthenticatedRoutes';
-
-const isLoggedIn = false;
+import { ApplicationsContextProvider } from 'contexts/ApplicationsContext';
 
 const AppRoute = () => {
-  if (!isLoggedIn) {
-    return <UnAuthenticatedRoutes />;
-  }
+  const { auth, getUserDetails } = useFirebaseContext();
+  const { setUser, user } = useAuthContext();
 
-  return <AuthenticatedRoutes />;
+  useEffect(() => {
+    const authListener = auth.onAuthStateChanged(async (authUser) => {
+      if (authUser) {
+        return setUser({
+          ...(await getUserDetails()),
+        });
+      }
+      setUser(null);
+    });
+
+    return () => {
+      authListener();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // if (isLoading) {
+  //   return;
+  // }
+
+  return user ? (
+    <ApplicationsContextProvider>
+      <AuthenticatedRoutes />
+    </ApplicationsContextProvider>
+  ) : (
+    <UnAuthenticatedRoutes />
+  );
 };
 
 export default AppRoute;
