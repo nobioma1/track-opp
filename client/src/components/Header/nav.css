@@ -1,0 +1,15 @@
+.nav-link {
+  color: #8a8f94;
+}
+
+.nav-link.active {
+  color: #805ad5;
+}
+
+.nav-link .dot {
+  background-color: #8a8f94;
+}
+
+.nav-link.active .dot {
+  background-color: #805ad5;
+}
