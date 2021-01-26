@@ -1,6 +1,6 @@
 import { Grid, Box } from '@chakra-ui/react';
 
-import Logo from '../Logo';
+import Logo from 'components/Logo';
 
 const AuthPageLayout: React.FC = ({ children }) => {
   return (
