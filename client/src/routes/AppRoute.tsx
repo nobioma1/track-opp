@@ -1,23 +1,16 @@
 import { useEffect } from 'react';
 
-import { useAuthContext, useFirebaseContext } from 'hooks';
+import { useAuthContext } from 'hooks';
 import AuthenticatedRoutes from './AuthenticatedRoutes';
 import UnAuthenticatedRoutes from './UnAuthenticatedRoutes';
 import { ApplicationsContextProvider } from 'contexts/ApplicationsContext';
+import SplashScreen from 'components/SplashScreen';
 
 const AppRoute = () => {
-  const { auth, getUserDetails } = useFirebaseContext();
-  const { setUser, user } = useAuthContext();
+  const { user, isLoading, userAuthChanged } = useAuthContext();
 
   useEffect(() => {
-    const authListener = auth.onAuthStateChanged(async (authUser) => {
-      if (authUser) {
-        return setUser({
-          ...(await getUserDetails()),
-        });
-      }
-      setUser(null);
-    });
+    const authListener = userAuthChanged();
 
     return () => {
       authListener();
