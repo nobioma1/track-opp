@@ -25,9 +25,9 @@ const AppRoute = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // if (isLoading) {
-  //   return;
-  // }
+  if (isLoading) {
+    return <SplashScreen />;
+  }
 
   return user ? (
     <ApplicationsContextProvider>
