@@ -1,12 +1,7 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { AuthPageLayout } from 'layouts';
-import {
-  CreateAccount,
-  ForgotPassword,
-  Login,
-  ResetPassword,
-} from 'components/Auth';
+import { CreateAccount, ForgotPassword, Login } from 'components/Auth';
 
 const UnAuthenticatedRoutes = () => {
   return (
@@ -20,9 +15,6 @@ const UnAuthenticatedRoutes = () => {
         </Route>
         <Route path="/forgot-password">
           <ForgotPassword />
-        </Route>
-        <Route path="/reset-password">
-          <ResetPassword />
         </Route>
         <Route>
           <Redirect to="/" />
