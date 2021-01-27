@@ -52,6 +52,9 @@ const AuthPageLayout: React.FC = ({ children }) => {
             backgroundColor="gray.50"
             position={{ base: 'fixed', md: 'relative' }}
             width={{ base: '100%', md: 'initial' }}
+            top={{ base: 0, md: 'initial' }}
+            left={{ base: 0, md: 'initial' }}
+            padding={{ base: 5, md: 0 }}
           >
             <Logo to="/" marginBottom={{ md: 12 }} />
           </Box>
