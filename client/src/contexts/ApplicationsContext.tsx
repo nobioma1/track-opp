@@ -17,6 +17,7 @@ interface ApplicationsContextValue {
   state: IAPPLICATIONS_STATE;
   drawerIsOpen: boolean;
   drawerOnClose(): void;
+  clearEditing(): void;
   editing: EditingApplication;
   drawerOnOpen(a?: EditingApplication): void;
 }
@@ -44,6 +45,8 @@ export const ApplicationsContextProvider: React.FC = ({ children }) => {
     });
   };
 
+  const clearEditing = () => setEditing(null);
+
   return (
     <ApplicationsContext.Provider
       value={{
@@ -52,6 +55,7 @@ export const ApplicationsContextProvider: React.FC = ({ children }) => {
         dailyGoal: user?.dailyGoal,
         getApplications,
         drawerIsOpen: isOpen,
+        clearEditing,
         drawerOnOpen: (application) => {
           if (application) {
             setEditing(application);
@@ -60,7 +64,7 @@ export const ApplicationsContextProvider: React.FC = ({ children }) => {
         },
         drawerOnClose: () => {
           onClose();
-          setEditing(null);
+          clearEditing();
         },
       }}
     >

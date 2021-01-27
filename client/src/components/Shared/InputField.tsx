@@ -1,20 +1,12 @@
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  FormHelperText,
-} from '@chakra-ui/react';
+import { Input, FormHelperText, Textarea } from '@chakra-ui/react';
+import InputLayout, { InputLayoutProps } from './InputLayout';
 
-type Props = {
-  name: string;
-  label?: string;
+interface Props extends InputLayoutProps {
   placeholder?: string;
-  helperText?: string;
-  isRequired?: boolean;
   inputRef: any;
-  error?: string;
+  textarea?: boolean;
   type?: 'text' | 'password' | 'email';
-};
+}
 
 const InputField: React.FC<Props> = ({
   type,
@@ -25,25 +17,35 @@ const InputField: React.FC<Props> = ({
   helperText,
   error,
   isRequired,
+  textarea,
 }) => {
   return (
-    <FormControl id={name} isRequired={isRequired}>
-      {label && <FormLabel>{label}</FormLabel>}
-      {error && (
-        <FormHelperText color="red.300" marginBottom={2}>
-          {error}
-        </FormHelperText>
+    <InputLayout
+      label={label}
+      name={name}
+      helperText={helperText}
+      error={error}
+      isRequired={isRequired}
+    >
+      {textarea ? (
+        <Textarea
+          ref={inputRef}
+          name={name}
+          focusBorderColor="purple.600"
+          placeholder={placeholder}
+          isInvalid={!!error}
+        />
+      ) : (
+        <Input
+          ref={inputRef}
+          type={type || 'text'}
+          name={name}
+          focusBorderColor="purple.600"
+          placeholder={placeholder}
+          isInvalid={!!error}
+        />
       )}
-      <Input
-        ref={inputRef}
-        type={type || 'text'}
-        name={name}
-        focusBorderColor="purple.600"
-        placeholder={placeholder}
-        isInvalid={!!error}
-      />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-    </FormControl>
+    </InputLayout>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import firebase from 'firebase/app';
 
 import { useFirebaseContext } from 'hooks';
+import { LoginTypes } from 'types';
 
 export interface User {
   uid: string;
@@ -10,6 +11,7 @@ export interface User {
   email: string;
   photoURL: string;
   dailyGoal?: number;
+  loginType: LoginTypes;
   timestamp: number;
 }
 
@@ -28,7 +30,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const userAuthChanged = () => {
-    return auth.onAuthStateChanged(async () => {
+    return auth.onAuthStateChanged(async (authUser) => {
       getUserDetails((user) => {
         setUser(user);
         setIsLoading(false);
