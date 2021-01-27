@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import AuthSectionLayout from './AuthSectionLayout';
-import { InputField } from '../Shared';
+import AuthSectionLayout from 'components/Auth/AuthSectionLayout';
+import { InputField } from 'components/Shared';
+import { useFirebaseContext } from 'hooks';
+import { Feedback } from 'types';
 
 export interface ForgotPasswordFormData {
   email: string;
@@ -14,18 +17,38 @@ const forgotPasswordSchema = yup.object().shape({
 });
 
 const ForgotPassword = () => {
+  const [isLoading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState<Feedback>(null);
   const {
     register,
     handleSubmit,
     errors,
-    formState,
+    reset,
+    formState: { isDirty, isValid },
   } = useForm<ForgotPasswordFormData>({
     mode: 'onChange',
     resolver: yupResolver(forgotPasswordSchema),
   });
 
-  const onSubmit = (data: ForgotPasswordFormData) => {
-    console.log(data);
+  const { forgotPassword } = useFirebaseContext();
+
+  const onSubmit = async ({ email }: ForgotPasswordFormData) => {
+    setLoading(true);
+    try {
+      await forgotPassword(email);
+      setFeedback({
+        status: 'success',
+        msg: `Password reset link has been sent to '${email}'`,
+      });
+      reset({ email: '' });
+    } catch (error) {
+      setFeedback({
+        status: 'error',
+        msg: `Error sending password reset link. Please try again!'`,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const footerLinks = [
@@ -46,10 +69,12 @@ const ForgotPassword = () => {
         Enter email associated with your account, if we find your 
         account, we'll send a reset email to your email.
       `}
+      feedback={feedback}
       btnText="Send password reset link"
       onSubmit={handleSubmit(onSubmit)}
       footerLinks={footerLinks}
-      isDisabled={!formState.isValid}
+      isLoading={isLoading}
+      isDisabled={!isDirty || !isValid}
     >
       <InputField
         inputRef={register}

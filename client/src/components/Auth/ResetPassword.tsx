@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import AuthSectionLayout from './AuthSectionLayout';
-import { InputField } from '../Shared';
+import AuthSectionLayout from 'components/Auth/AuthSectionLayout';
+import { InputField } from 'components/Shared';
 
 export interface ResetPasswordFormData {
   newPassword: string;
@@ -20,18 +21,22 @@ const resetPasswordSchema = yup.object().shape({
 });
 
 const ResetPassword = () => {
+  const [isLoading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     errors,
-    formState,
+    formState: { isDirty, isValid },
   } = useForm<ResetPasswordFormData>({
     mode: 'onChange',
     resolver: yupResolver(resetPasswordSchema),
   });
 
-  const onSubmit = (data: ResetPasswordFormData) => {
-    console.log(data);
+  const onSubmit = async ({ newPassword }: ResetPasswordFormData) => {
+    try {
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   return (
@@ -40,7 +45,8 @@ const ResetPassword = () => {
       subText="Enter a new password that you'll use for log in"
       btnText="Update my password"
       onSubmit={handleSubmit(onSubmit)}
-      isDisabled={!formState.isValid}
+      isLoading={isLoading}
+      isDisabled={!isDirty || !isValid}
     >
       <InputField
         inputRef={register}

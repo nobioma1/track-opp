@@ -1,10 +1,11 @@
-import { Stack, Button } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import AuthSectionLayout from './AuthSectionLayout';
-import { InputField } from '../Shared';
+import AuthSectionLayout from 'components/Auth/AuthSectionLayout';
+import { InputField } from 'components/Shared';
+import { useFirebaseContext, useToaster } from 'hooks';
 
 export interface CreateAccountFormData {
   firstName: string;
@@ -21,25 +22,38 @@ const createAccountSchema = yup.object().shape({
 });
 
 const CreateAccount = () => {
+  const [isLoading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     errors,
-    formState,
+    getValues,
+    reset,
+    formState: { isDirty, isValid },
   } = useForm<CreateAccountFormData>({
     mode: 'onChange',
     resolver: yupResolver(createAccountSchema),
   });
 
-  const onSubmit = (data: CreateAccountFormData) => {
-    console.log(data);
-  };
+  const doToast = useToaster();
+  const { createUserWithEmailAndPassword } = useFirebaseContext();
 
-  const FooterSection = (
-    <Stack>
-      <Button>Sign up with Google</Button>
-    </Stack>
-  );
+  const onSubmit = (data: CreateAccountFormData) => {
+    setLoading(true);
+    createUserWithEmailAndPassword(
+      data,
+      () => {},
+      (msg) => {
+        doToast({
+          title: 'Error creating account.',
+          description: msg,
+          status: 'error',
+        });
+        reset({ ...getValues(), password: '' });
+        setLoading(false);
+      }
+    );
+  };
 
   const footerLinks = [
     {
@@ -54,9 +68,9 @@ const CreateAccount = () => {
       subText="Start today and keep track on job applications, sign up with us now."
       btnText="Create my account"
       onSubmit={handleSubmit(onSubmit)}
-      footerSection={FooterSection}
       footerLinks={footerLinks}
-      isDisabled={!formState.isValid}
+      isLoading={isLoading}
+      isDisabled={!isDirty || !isValid}
     >
       <InputField
         inputRef={register}
