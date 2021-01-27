@@ -1,4 +1,4 @@
-import { Input, FormHelperText, Textarea } from '@chakra-ui/react';
+import { Input, Textarea } from '@chakra-ui/react';
 import InputLayout, { InputLayoutProps } from './InputLayout';
 
 interface Props extends InputLayoutProps {
