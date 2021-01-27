@@ -5,8 +5,12 @@ import {
   Heading,
   Text,
   Button,
+  Alert,
+  AlertIcon,
   Link as UILink,
 } from '@chakra-ui/react';
+
+import { Feedback } from 'types';
 
 interface FooterLinks {
   to: string;
@@ -18,7 +22,9 @@ type Props = {
   btnText: string;
   subText?: string;
   onSubmit(e: any): void;
+  isLoading?: boolean;
   isDisabled?: boolean;
+  feedback?: Feedback;
   footerSection?: React.ReactNode;
   footerLinks?: FooterLinks[];
 };
@@ -29,6 +35,8 @@ const AuthSectionLayout: React.FC<Props> = ({
   subText,
   btnText,
   onSubmit,
+  feedback,
+  isLoading,
   isDisabled,
   footerSection,
   footerLinks,
@@ -48,10 +56,18 @@ const AuthSectionLayout: React.FC<Props> = ({
         }}
       >
         <Stack spacing={4}>
+          {feedback && (
+            <Alert status={feedback.status}>
+              <AlertIcon />
+              {feedback.msg}
+            </Alert>
+          )}
+
           {children}
           <Button
             size="lg"
             type="submit"
+            isLoading={isLoading}
             isDisabled={isDisabled}
             colorScheme="purple"
           >
