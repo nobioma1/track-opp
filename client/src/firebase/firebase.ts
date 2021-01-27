@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/analytics';
 
 import config from '../config';
 import { LoginFormData } from 'components/Auth/Login';
@@ -26,6 +27,7 @@ class Firebase {
     // check if app is already initialized
     if (app.apps.length === 0) {
       app.initializeApp(config.firebase);
+      app.analytics();
     }
 
     this.auth = app.auth();
