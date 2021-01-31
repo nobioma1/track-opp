@@ -108,21 +108,15 @@ class Firebase {
     }
   };
 
-  signInWithGoogle = () => {
-    this.auth.signInWithPopup(this.provider);
-  };
+  signInWithGoogle = () => this.auth.signInWithPopup(this.provider);
 
-  logInWithEmailAndPassword = ({ email, password }: LoginFormData) => {
+  logInWithEmailAndPassword = ({ email, password }: LoginFormData) =>
     this.auth.signInWithEmailAndPassword(email, password);
-  };
 
-  logOut = () => {
-    this.auth.signOut();
-  };
+  logOut = () => this.auth.signOut();
 
-  forgotPassword = (email: ForgotPasswordFormData['email']) => {
+  forgotPassword = (email: ForgotPasswordFormData['email']) =>
     this.auth.sendPasswordResetEmail(email);
-  };
 
   updatePassword = async (
     credentials: UpdatePasswordFormData,
