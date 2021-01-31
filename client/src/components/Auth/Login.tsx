@@ -74,7 +74,7 @@ const Login = () => {
       to: '/create-account',
     },
     {
-      linkTitle: 'Forgot Password',
+      linkTitle: 'Forgot password?',
       to: '/forgot-password',
     },
   ];
