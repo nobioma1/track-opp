@@ -1,5 +1,6 @@
 import { Input, Textarea } from '@chakra-ui/react';
-import InputLayout, { InputLayoutProps } from './InputLayout';
+
+import InputLayout, { InputLayoutProps } from '../layout/InputLayout';
 
 interface Props extends InputLayoutProps {
   placeholder?: string;

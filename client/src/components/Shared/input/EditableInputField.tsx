@@ -5,8 +5,9 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
+
 import { UpdateInput } from 'components/Profile/Profile';
-import { InputLayoutProps } from './InputLayout';
+import { InputLayoutProps } from '../layout/InputLayout';
 
 interface Props extends InputLayoutProps {
   value: string;
