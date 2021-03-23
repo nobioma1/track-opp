@@ -41,7 +41,7 @@ export interface ApplicationFormData extends States {
 const applicationSchema = yup.object().shape({
   jobTitle: yup.string().label('Job title').required(),
   companyName: yup.string().label('Company name').required(),
-  url: yup.string().label('URL'),
+  url: yup.string().url().label('URL'),
   notes: yup.string().label('Notes'),
 });
 
